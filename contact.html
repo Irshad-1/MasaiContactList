@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .navbar {
+            display: flex;
+            justify-content: space-evenly;
+            background-color: white;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+            padding: 20px;
+        }
+        .navbar a{
+            text-decoration: none;
+            color:teal;
+            font-size: 40px;
+        }
+        table{
+            margin: 40px auto;
+            width: 70%;
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+        }
+        table >tbody>tr >td{
+            border: 1px solid rgb(205, 198, 198);
+        }
+        table > tbody >  tr >td ,table >thead >tr>th{
+            padding: 20px;
+        }
+        table >thead{
+            background-color: teal;
+            color: white;
+            text-align: left;
+        }
+        table >tbody>tr> button{
+            background-color: white;
+            color: red;
+            border: 0px;
+            padding: 20px;
+            font-size: 18px;
+            border: 1px solid rgb(205, 198, 198);
+            width: 100%;   
+            cursor: pointer;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div><a href="index.html">Home</a></div>
+        <div><a href="">Contact List</a></div>
+        <div><a href="favourites.html">Favourites</a></div>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Contact Name</th>
+                <th>Mobile Number</th>
+                <th>Type</th>
+                <th>Favourites</th>
+            </tr>
+        </thead>
+        <tbody id="tbody">
+        </tbody>
+    </table>
+</body>
+<script>
+    var contactList=JSON.parse(localStorage.getItem('contactList'));
+
+    var favourites;
+    if(localStorage.getItem('favourites')==null)
+    favourites=[];
+    else
+    favourites=JSON.parse(localStorage.getItem('favourites'));
+
+    contactList.forEach((element)=>{
+        var tableRow=document.createElement('tr');
+        var name=document.createElement('td');
+        var number=document.createElement('td');
+        var type=document.createElement('td');
+        var favourite=document.createElement('button');
+        name.innerText=element.name;
+        number.innerText=element.mobile;
+        type.innerText=element.type;
+        favourite.innerText="Add to Fav";
+        tableRow.append(name,number,type,favourite);
+        document.querySelector('#tbody').append(tableRow);
+        favourite.addEventListener('click',()=>{
+            favourites.push(element);
+            localStorage.setItem('favourites',JSON.stringify(favourites));
+        })
+    });
+
+</script>
+</html>

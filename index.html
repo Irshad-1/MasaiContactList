@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        .navbar {
+            display: flex;
+            justify-content: space-evenly;
+            background-color: white;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+            padding: 20px;
+        }
+        .navbar a{
+            text-decoration: none;
+            color:teal;
+            font-size: 40px;
+        }
+        .contact{
+            width: 30%;
+            margin: 40px auto;
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+            padding: 70px;
+        }
+        .contact >form{
+            display: flex;
+            flex-direction: column;
+            
+        }
+        .contact > form >input,.contact > form >select{
+            margin:15px 0px;
+            width: 70%;
+            font-size: 25px;
+            padding: 5px;
+        }
+        .contact input[type=submit]{
+            background-color: black;
+            color:white;
+            border-radius: 20px;
+        } 
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div><a href="">Home</a></div>
+        <div><a href="contact.html">Contact List</a></div>
+        <div><a href="favourites.html">Favourites</a></div>
+    </div>
+    
+    <div class="contact">
+        <h1>Enter Your Contact Details</h1>
+        <form action="">
+            <input type="text" placeholder="Enter Contact name" id="name">
+            <input type="number" placeholder="Enter Mobile Number" id="number">
+            <select id="type">
+                <option >Select Type</option>
+                <option value="family">Family</option>
+                <option value="friends">Friends</option>
+                <option value="others">Others</option>
+            </select>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</body>
+<script>
+    var contactList;
+    if(localStorage.getItem('contactList')==null)
+    contactList=[];
+    else
+    contactList=JSON.parse(localStorage.getItem('contactList'));
+
+    document.querySelector('form').addEventListener('submit',()=>{
+        var contact={
+            name:document.querySelector('#name').value,
+            mobile:document.querySelector('#number').value,
+            type:document.querySelector('#type').value
+        }
+
+        contactList.push(contact);
+        localStorage.setItem('contactList',JSON.stringify(contactList));
+        alert("Added contact to your contact list");
+    })
+</script>
+</html>
